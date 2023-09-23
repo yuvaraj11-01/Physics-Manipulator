@@ -7,9 +7,12 @@ using KevinCastejon.HierarchicalFiniteStateMachine;
 public class PlayerStateMachineComponent : MonoBehaviour
 {
     private PlayerStateMachine _stateMachine;
+    
     private void Awake()
     {
         _stateMachine = AbstractHierarchicalFiniteStateMachine.CreateRootStateMachine<PlayerStateMachine>("PlayerStateMachine");
+        _stateMachine.rb = GetComponent<Rigidbody2D>();
+        _stateMachine.sensors = GetComponent<PlayerDetectionSensors>();
     }
     private void Start()
     {
