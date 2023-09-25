@@ -30,7 +30,7 @@ public class Weapon : MonoBehaviour
 
     void PerformFire()
     {
-        Debug.Log("Firing");
+        //Debug.Log("Firing");
         // shoot ray and get target pos and target collider
         Shoot(out Vector3 hitpos, out Collider2D hitCollider);
         // Draw line renderer to the target pos
@@ -39,7 +39,14 @@ public class Weapon : MonoBehaviour
 
     void Shoot(out Vector3 res, out Collider2D resCollider)
     {
-        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var mousePos = MouseInput.GetPlayerMousePos(out bool inBounds);
+
+        if (!inBounds)
+        {
+            res = Vector3.zero;
+            resCollider = null;
+            return;
+        }
 
         var dir = mousePos - shootPos.position;
 

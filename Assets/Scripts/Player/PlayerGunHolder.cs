@@ -19,8 +19,11 @@ public class PlayerGunHolder : MonoBehaviour
 
     public void RotateHolder()
     {
-        Vector3 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePosition = MouseInput.GetPlayerMousePos(out bool inBound);
         mousePosition.z = 0;
+
+        if (!inBound) return;
+
 
         Vector3 direction = mousePosition - transform.position;
 
