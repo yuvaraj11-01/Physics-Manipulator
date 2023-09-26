@@ -14,6 +14,14 @@ public class GravityValue : PropertyValue
         initVisual();
     }
 
+    public override void init()
+    {
+        base.init();
+        if (Weapon.propertyQueue == null) { Weapon.propertyQueue = new List<IProperty>() { null, null, null }; }
+        Weapon.propertyQueue[slot.slotIndex] = new SetGravity(this);
+
+    }
+
     public void OnChange()
     {
         _value = !_value;
@@ -23,6 +31,16 @@ public class GravityValue : PropertyValue
     void initVisual()
     {
         text.text = _value ? "ON" : "OFF";
+    }
+
+    public bool GetValue()
+    {
+        return _value;
+    }
+
+    private void OnDestroy()
+    {
+        Weapon.propertyQueue[slot.slotIndex] = null;
     }
 
 }

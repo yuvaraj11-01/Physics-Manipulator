@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForceDirectionValue : PropertyValue
+public class SizeValue : PropertyValue
 {
-    int angle;
-    [SerializeField] RectTransform arrow;
+    bool _value;
+    [SerializeField] TMPro.TMP_Text text;
 
     private void Awake()
     {
@@ -16,26 +16,25 @@ public class ForceDirectionValue : PropertyValue
     public override void init()
     {
         base.init();
-        if (Weapon.propertyQueue == null) { Weapon.propertyQueue = new List<IProperty>() { null, null, null }; }
-        Weapon.propertyQueue[slot.slotIndex] = new AddFroce(this);
+        if(Weapon.propertyQueue == null) { Weapon.propertyQueue = new List<IProperty>() { null, null, null }; }
+        Weapon.propertyQueue[slot.slotIndex] = new SetSize(this);
 
     }
 
     public void OnChange()
     {
-        angle += 45;
+        _value = !_value;
         initVisual();
     }
 
     void initVisual()
     {
-        arrow.rotation = Quaternion.Euler(0, 0, angle);
+        text.text = _value ? "Inc" : "Dec";
     }
 
-
-    public int GetValue()
+    public bool GetValue()
     {
-        return angle;
+        return _value;
     }
 
     private void OnDestroy()

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    public static  List<IProperty> propertyQueue = new List<IProperty>() { null, null, null };
+
     [SerializeField] Transform shootPos;
     [SerializeField] LayerMask detectLayer;
 
@@ -32,19 +34,23 @@ public class Weapon : MonoBehaviour
     {
         //Debug.Log("Firing");
         // shoot ray and get target pos and target collider
-        Shoot(out Vector3 hitpos, out Collider2D hitCollider);
+        Shoot(out Vector3 hitpos, out Rigidbody2D rb);
         // Draw line renderer to the target pos
-
+        // apply properties
+        if (rb)
+        {
+            StartCoroutine( ApplyQueueProperties(rb, hitpos));
+        }
     }
 
-    void Shoot(out Vector3 res, out Collider2D resCollider)
+    void Shoot(out Vector3 res, out Rigidbody2D rb)
     {
         var mousePos = MouseInput.GetPlayerMousePos(out bool inBounds);
 
         if (!inBounds)
         {
             res = Vector3.zero;
-            resCollider = null;
+            rb = null;
             return;
         }
 
@@ -57,13 +63,26 @@ public class Weapon : MonoBehaviour
             Debug.Log($"{hit.collider.name} - {hit.point}");
             Debug.DrawLine(shootPos.position, hit.point, Color.green, .25f);
             res = hit.point;
-            resCollider = hit.collider;
+            rb = hit.rigidbody;
         }
         else
         {
             Debug.DrawLine(shootPos.position, mousePos, Color.red, .25f);
             res = mousePos;
-            resCollider = null;
+            rb = null;
+        }
+    }
+
+    IEnumerator ApplyQueueProperties(Rigidbody2D rb, Vector2 hitPos)
+    {
+        foreach (var property in propertyQueue)
+        {
+            Debug.Log("exe");
+            if (property == null) continue;
+
+            property.Execute(rb, hitPos);
+            Debug.Log("exe Done");
+            yield return null;
         }
     }
 

@@ -6,5 +6,10 @@ using UnityEngine;
 
 public class PropertyValue : MonoBehaviour
 {
-    public PropertySlot slot;
+    [HideInInspector] public PropertySlot slot;
+    public PhysicsProperty propertyType;
+    public virtual void init()
+    {
+        
+    }
 }

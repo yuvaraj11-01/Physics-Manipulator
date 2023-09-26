@@ -13,6 +13,8 @@ public class PropertySlot : MonoBehaviour, IDropHandler
     GameObject valueVisual;
     RectTransform propertyVisual;
 
+    public int slotIndex;
+
     private void Awake()
     {
         RemoveBTN.SetActive(false);
@@ -57,7 +59,8 @@ public class PropertySlot : MonoBehaviour, IDropHandler
     {
         var ValueUI = propertyScriptable.GetPropertyData(appliedProperty);
         valueVisual = Instantiate(ValueUI.ValuePrefab.gameObject, ValueSlot);
-
+        valueVisual.GetComponent<PropertyValue>().slot = this;
+        valueVisual.GetComponent<PropertyValue>().init();
 
         RemoveBTN.SetActive(true);
     }
