@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class WeaponUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] PlayerStateMachineComponent player;
+    [SerializeField] GameObject Blocky;
+
+    private void Start()
     {
-        
+        if (player.WeaponEnabled)
+        {
+            Blocky.SetActive(false);
+        } else Blocky.SetActive(true);
+
+        player.OnWeaponEnable.AddListener(() =>
+        {
+            Blocky.SetActive(false);
+        });
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
 }

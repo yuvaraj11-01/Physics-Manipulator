@@ -34,12 +34,12 @@ public class PlayerGunHolder : MonoBehaviour
         if (transform.position.x > mousePosition.x)
         {
             transform.localScale = new Vector3(1, -1, 1);
-            playerVisual.localScale = new Vector3(-1, 1, 1);
+            //playerVisual.localScale = new Vector3(-1, 1, 1);
         }
         else if (transform.position.x < mousePosition.x)
         {
             transform.localScale = new Vector3(1, 1, 1);
-            playerVisual.localScale = new Vector3(1, 1, 1);
+            //playerVisual.localScale = new Vector3(1, 1, 1);
         }
     }
 

@@ -30,6 +30,7 @@ public class PropertyDragable : MonoBehaviour, IBeginDragHandler, IEndDragHandle
     {
         group.blocksRaycasts = false;
         Clone = Instantiate(cloneObject, canvas.transform);
+        Clone.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
         Clone.GetComponent<CanvasGroup>().blocksRaycasts = false;
 
     }

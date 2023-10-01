@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IProperty
 {
-    void Execute(Rigidbody2D rb, Vector2 pos);
+    void Execute(Rigidbody2D rb);
 }
 
 public class SetGravity : IProperty
@@ -13,7 +13,7 @@ public class SetGravity : IProperty
         this.property = property;
     }
 
-    public void Execute(Rigidbody2D rb, Vector2 pos = new Vector2())
+    public void Execute(Rigidbody2D rb)
     {
         var value = ((GravityValue)property).GetValue();
 
@@ -30,7 +30,7 @@ public class AddFroce : IProperty
         this.property = property;
     }
 
-    public void Execute(Rigidbody2D rb, Vector2 pos = new Vector2())
+    public void Execute(Rigidbody2D rb)
     {
         var value = ((ForceDirectionValue)property).GetValue();
 
@@ -49,7 +49,7 @@ public class SetSize : IProperty
         this.property = property;
     }
 
-    public void Execute(Rigidbody2D rb, Vector2 pos = new Vector2())
+    public void Execute(Rigidbody2D rb)
     {
         var value = ((SizeValue)property).GetValue();
 

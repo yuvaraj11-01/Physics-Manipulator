@@ -33,6 +33,10 @@ public class PlayerStateMachine : AbstractHierarchicalFiniteStateMachine
     {
         inputs = new InputController();
         inputs.Player.Enable();
+        PlayerInventory.OnItemAdd.AddListener(() =>
+        {
+            Debug.Log("Item Added");
+        });
     }
     public override void OnStateMachineExit()
     {
