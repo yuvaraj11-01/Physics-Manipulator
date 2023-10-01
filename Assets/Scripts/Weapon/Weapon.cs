@@ -58,7 +58,7 @@ public class Weapon : MonoBehaviour
             visual.SetPosition(i, hitpos[i]);
             Debug.Log(hitpos[i]);
         }
-        Debug.Log(hitpos.Count +" : "+rb.name);
+        Debug.Log(hitpos.Count +" : "+rb?.name);
         
 
         Destroy(visual.gameObject, .2f);
